@@ -1,0 +1,10 @@
+{
+  "name": "My Grocery App",
+  "short_name": "My Grocery",
+  "description": "Personal grocery, meal and budget planner",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait"
+}
