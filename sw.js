@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-grocery-v2"; // notun version, code change korle number barabein
+const CACHE_NAME = "my-grocery-v3"; // notun version, code change korle number barabein
 
 const FILES_TO_CACHE = [
     "./",
