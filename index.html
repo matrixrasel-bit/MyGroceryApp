@@ -15,294 +15,346 @@
 
 <div class="app">
 
+    <!-- HEADER -->
     <header>
         <h1>🛒 My Grocery</h1>
         <p>My personal food planner</p>
     </header>
 
+
+    <!-- HOME PAGE -->
     <main id="home">
+
+        <!-- Dashboard -->
         <div class="dashboard">
 
-    <h2>👋 My Today</h2>
+            <h2>👋 My Today</h2>
 
-    <p id="todayDate"></p>
+            <p id="todayDate"></p>
 
-    <div class="today-meal">
-        🍳 <strong>Today's Meal</strong>
-        <p id="todayMeal">No meal planned yet</p>
-    </div>
+            <div class="today-meal">
+                🍳 <strong>Today's Meal</strong>
+                <p id="todayMeal">No meal planned yet</p>
+            </div>
 
-    <div class="dashboard-stats">
+            <div class="dashboard-stats">
 
-        <div class="stat-card">
-            <span>🛒 Shopping</span>
-            <strong id="shoppingProgress">0 / 24</strong>
-            <small>items completed</small>
+                <div class="stat-card">
+                    <span>🛒 Shopping</span>
+                    <strong id="shoppingProgress">0 / 24</strong>
+                    <small>items completed</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>💰 Budget Left</span>
+                    <strong id="dashboardBudget">₩0</strong>
+                    <small>remaining</small>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="stat-card">
-            <span>💰 Budget Left</span>
-            <strong id="dashboardBudget">₩0</strong>
-            <small>remaining</small>
-        </div>
 
-    </div>
-
-</div>
+        <!-- Shopping -->
         <div class="card">
+
             <h2>🛍️ Shopping</h2>
+
             <p>Monthly & weekly shopping list</p>
 
             <button onclick="openShopping()">
                 Open Shopping List
             </button>
+
         </div>
 
+
+        <!-- Meal Plan -->
         <div class="card">
+
             <h2>🍳 Meal Plan</h2>
+
             <p>Plan what you will eat this week</p>
 
             <button onclick="openMealPlan()">
                 Open Meal Plan
             </button>
+
         </div>
 
+
+        <!-- Budget -->
         <div class="card">
+
             <h2>💰 Budget</h2>
-            <p>Track your monthly food spending</p>
+
+            <p>Track your monthly grocery spending.</p>
 
             <button onclick="openBudget()">
                 Open Budget
             </button>
+
         </div>
+
+
+        <!-- Food Stock -->
         <div class="card">
 
-    <h2>📦 Food Stock</h2>
+            <h2>📦 Food Stock</h2>
 
-    <p>Check what you have at home</p>
+            <p>Track the food you currently have.</p>
 
-    <button onclick="openStock()">
-        Open Food Stock
-    </button>
-    <div class="card">
+            <button onclick="openStock()">
+                Open Food Stock
+            </button>
 
-    <h2>🔔 Reminders</h2>
+        </div>
 
-    <p>Never forget shopping or stock checking</p>
 
-    <button onclick="openReminders()">
-        Open Reminders
-    </button>
+        <!-- Reminders -->
+        <div class="card">
 
-</div>
+            <h2>🔔 Reminders</h2>
 
-</div>
+            <p>Set your shopping and stock reminders.</p>
+
+            <button onclick="openReminders()">
+                Open Reminders
+            </button>
+
+        </div>
 
     </main>
-    <!-- Budget Page -->
-
-<main id="budgetPage" style="display:none;">
-
-    <button onclick="goHome()">← Back</button>
-
-    <h2>💰 Budget Tracker</h2>
-
-    <div class="budget-box">
-
-        <label>Monthly Budget (₩)</label>
-
-        <input
-            type="number"
-            id="monthlyBudget"
-            placeholder="250000"
-        >
-
-        <button onclick="saveBudget()">
-            Save Budget
-        </button>
-
-    </div>
 
 
-    <div class="budget-summary">
+    <!-- BUDGET PAGE -->
+    <main id="budgetPage" style="display:none;">
 
-        <div class="money-card">
-            <span>💰 Budget</span>
-            <strong id="budgetAmount">₩0</strong>
+        <button onclick="goHome()">← Back</button>
+
+        <h2>💰 Budget Tracker</h2>
+
+
+        <div class="budget-box">
+
+            <label>Monthly Budget (₩)</label>
+
+            <input
+                type="number"
+                id="monthlyBudget"
+                placeholder="250000"
+            >
+
+            <button onclick="saveBudget()">
+                Save Budget
+            </button>
+
         </div>
 
-        <div class="money-card">
-            <span>💸 Spent</span>
-            <strong id="spentAmount">₩0</strong>
+
+        <div class="budget-summary">
+
+            <div class="money-card">
+                <span>💰 Budget</span>
+                <strong id="budgetAmount">₩0</strong>
+            </div>
+
+            <div class="money-card">
+                <span>💸 Spent</span>
+                <strong id="spentAmount">₩0</strong>
+            </div>
+
+            <div class="money-card">
+                <span>💵 Remaining</span>
+                <strong id="remainingAmount">₩0</strong>
+            </div>
+
         </div>
 
-        <div class="money-card">
-            <span>💵 Remaining</span>
-            <strong id="remainingAmount">₩0</strong>
+
+        <div class="budget-box">
+
+            <h3>➕ Add Expense</h3>
+
+            <input
+                type="text"
+                id="expenseName"
+                placeholder="What did you buy?"
+            >
+
+            <input
+                type="number"
+                id="expenseAmount"
+                placeholder="Amount (₩)"
+            >
+
+            <button onclick="addExpense()">
+                Add Expense
+            </button>
+
         </div>
 
-    </div>
+
+        <h3>📋 Expenses</h3>
+
+        <div id="expenseList"></div>
+
+    </main>
 
 
-    <div class="budget-box">
+    <!-- MEAL PLAN PAGE -->
+    <main id="mealPage" style="display:none;">
 
-        <h3>➕ Add Expense</h3>
+        <button onclick="goHome()">← Back</button>
 
-        <input
-            type="text"
-            id="expenseName"
-            placeholder="What did you buy?"
-        >
+        <h2>🍳 Weekly Meal Plan</h2>
 
-        <input
-            type="number"
-            id="expenseAmount"
-            placeholder="Amount (₩)"
-        >
+        <p class="meal-info">
+            Plan your meals for the whole week.
+        </p>
 
-        <button onclick="addExpense()">
-            Add Expense
-        </button>
+        <div id="mealList"></div>
 
-    </div>
-    <!-- Meal Plan Page -->
-
-<main id="mealPage" style="display:none;">
-    <!-- Stock Page -->
-
-<main id="stockPage" style="display:none;">
-
-    <button onclick="goHome()">← Back</button>
-
-    <h2>📦 My Food Stock</h2>
-
-    <div class="stock-box">
-
-        <input
-            type="text"
-            id="stockName"
-            placeholder="Food name"
-        >
-
-        <input
-            type="number"
-            id="stockQuantity"
-            placeholder="Quantity"
-            step="0.1"
-        >
-
-        <select id="stockUnit">
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="pcs">pcs</option>
-            <option value="L">L</option>
-            <option value="pack">pack</option>
-        </select>
-
-        <input
-            type="number"
-            id="lowLimit"
-            placeholder="Low stock limit"
-            step="0.1"
-        >
-
-        <button onclick="addStock()">
-            ➕ Add Food
-        </button>
-
-    </div>
-    <!-- Reminder Page -->
-
-<main id="reminderPage" style="display:none;">
-
-    <button onclick="goHome()">← Back</button>
-
-    <h2>🔔 Reminders</h2>
-
-    <div class="reminder-box">
-
-        <h3>🛒 Weekly Shopping</h3>
-
-        <label>Day</label>
-
-        <select id="shoppingDay">
-            <option value="0">Sunday</option>
-            <option value="1">Monday</option>
-            <option value="2">Tuesday</option>
-            <option value="3">Wednesday</option>
-            <option value="4">Thursday</option>
-            <option value="5">Friday</option>
-            <option value="6">Saturday</option>
-        </select>
-
-        <label>Time</label>
-
-        <input type="time" id="shoppingTime">
-
-        <button onclick="saveShoppingReminder()">
-            💾 Save Reminder
-        </button>
-
-    </div>
+    </main>
 
 
-    <div class="reminder-box">
+    <!-- FOOD STOCK PAGE -->
+    <main id="stockPage" style="display:none;">
 
-        <h3>📦 Check Food Stock</h3>
+        <button onclick="goHome()">← Back</button>
 
-        <label>Time</label>
-
-        <input type="time" id="stockTime">
-
-        <button onclick="saveStockReminder()">
-            💾 Save Reminder
-
-    </div>
+        <h2>📦 My Food Stock</h2>
 
 
-    <div id="reminderStatus"></div>
+        <div class="stock-box">
 
-</main>
+            <input
+                type="text"
+                id="stockName"
+                placeholder="Food name"
+            >
 
-    <h3>📋 Current Stock</h3>
+            <input
+                type="number"
+                id="stockQuantity"
+                placeholder="Quantity"
+                step="0.1"
+            >
 
-    <div id="stockList"></div>
+            <select id="stockUnit">
 
-</main>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="pcs">pcs</option>
+                <option value="L">L</option>
+                <option value="pack">pack</option>
 
-        
+            </select>
 
-    <button onclick="goHome()">← Back</button>
+            <input
+                type="number"
+                id="lowLimit"
+                placeholder="Low stock limit"
+                step="0.1"
+            >
 
-    <h2>🍳 Weekly Meal Plan</h2>
+            <button onclick="addStock()">
+                ➕ Add Food
+            </button>
 
-    <p class="meal-info">
-        Plan your meals for the whole week.
-    </p>
-
-    <div id="mealList"></div>
-
-</main>
+        </div>
 
 
-    <h3>📋 Expenses</h3>
+        <h3>📋 Current Stock</h3>
 
-    <div id="expenseList"></div>
+        <div id="stockList"></div>
 
-</main>
+    </main>
 
-    <!-- Shopping Page -->
 
+    <!-- REMINDER PAGE -->
+    <main id="reminderPage" style="display:none;">
+
+        <button onclick="goHome()">← Back</button>
+
+        <h2>🔔 Reminders</h2>
+
+
+        <div class="reminder-box">
+
+            <h3>🛒 Weekly Shopping</h3>
+
+            <label>Day</label>
+
+            <select id="shoppingDay">
+
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+
+            </select>
+
+
+            <label>Time</label>
+
+            <input
+                type="time"
+                id="shoppingTime"
+            >
+
+
+            <button onclick="saveShoppingReminder()">
+                💾 Save Reminder
+            </button>
+
+        </div>
+
+
+        <div class="reminder-box">
+
+            <h3>📦 Check Food Stock</h3>
+
+            <label>Time</label>
+
+            <input
+                type="time"
+                id="stockTime"
+            >
+
+
+            <button onclick="saveStockReminder()">
+                💾 Save Reminder
+            </button>
+
+        </div>
+
+
+        <div id="reminderStatus"></div>
+
+    </main>
+
+
+    <!-- SHOPPING PAGE -->
     <main id="shoppingPage" style="display:none;">
 
         <button onclick="goHome()">← Back</button>
 
         <h2>🛒 Shopping List</h2>
-        <div id="progress">0 items checked</div>
+
+        <div id="progress">
+            0 items checked
+        </div>
+
 
         <h3>📦 Monthly Stock</h3>
 
         <div id="monthlyList"></div>
+
 
         <h3>🥬 Weekly Fresh</h3>
 
@@ -310,11 +362,16 @@
 
     </main>
 
+
+    <!-- FOOTER -->
     <footer>
+
         <p>Made for my daily life ❤️</p>
+
     </footer>
 
 </div>
+
 
 <script src="app.js"></script>
 
