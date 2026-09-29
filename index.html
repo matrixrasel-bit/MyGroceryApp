@@ -41,7 +41,7 @@
 
                 <div class="stat-card">
                     <span>🛒 Shopping</span>
-                    <strong id="shoppingProgress">0 / 24</strong>
+                    <strong id="shoppingProgress">0 / 27</strong>
                     <small>items completed</small>
                 </div>
 
@@ -53,6 +53,15 @@
 
             </div>
 
+        </div>
+
+
+        <!-- Priority & Goal -->
+        <div class="goal-box">
+            <strong>❤️ PRIORITY</strong>
+            <p>🥚 Protein → 🍚 Rice/Carbs → 🥬 Vegetables → 🍌 Fruits → 🍟 Snacks</p>
+            <p class="rule-quote">“Healthy food আগে, snacks পরে.”</p>
+            <p>🎯 কম খরচ + ভালো খাবার + কম food waste + কম cooking time</p>
         </div>
 
 
@@ -143,7 +152,7 @@
             <input
                 type="number"
                 id="monthlyBudget"
-                placeholder="250000"
+                placeholder="300000"
             >
 
             <button onclick="saveBudget()">
@@ -346,19 +355,27 @@
 
         <h2>🛒 Shopping List</h2>
 
-        <div id="progress">
-            0 items checked
-        </div>
+        <div id="progress">0 items checked</div>
 
-
-        <h3>📦 Monthly Stock</h3>
-
+        <h3>🏠 Monthly Stock — মাসের শুরুতে</h3>
         <div id="monthlyList"></div>
+        <button class="secondary" onclick="resetChecks('monthly', monthlyItems.length)">🔄 Reset Monthly</button>
 
-
-        <h3>🥬 Weekly Fresh</h3>
-
+        <h3>🛍️ Weekly Fresh</h3>
+        <p class="section-note">🥬 প্রতি সপ্তাহে 3–4 ধরনের সবজি, 🍌 1–2 ধরনের ফল</p>
         <div id="weeklyList"></div>
+        <button class="secondary" onclick="resetChecks('weekly', weeklyItems.length)">🔄 Reset Weekly</button>
+
+        <h3>🍟 Snacks</h3>
+        <p class="section-note">Snacks-এর আলাদা budget। Healthy food আগে, snacks পরে।</p>
+        <div id="snackList"></div>
+
+        <h3>🍳 Sunday Preparation</h3>
+        <div id="prepList"></div>
+        <button class="secondary" onclick="resetChecks('prep', prepItems.length)">🔄 Reset Prep</button>
+
+        <h3>🧠 Shopping Rules</h3>
+        <div id="rulesList"></div>
 
     </main>
 
