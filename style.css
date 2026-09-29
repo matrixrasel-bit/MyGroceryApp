@@ -363,3 +363,11 @@ footer {
     border-radius: 12px;
     font-weight: bold;
 }
+
+/* Extras */
+.shopping-item small { color: #777; }
+.section-note { color: #666; font-size: 14px; margin-bottom: 10px; }
+button.secondary { background: #eee; color: #333; margin: 6px 0 10px; font-size: 14px; }
+.goal-box { background: #fff8e1; padding: 16px; border-radius: 18px; margin-bottom: 18px; line-height: 1.5; }
+.goal-box p { margin-top: 6px; color: #444; }
+.rule-quote { font-weight: bold; color: #2e7d32 !important; }
