@@ -1,31 +1,39 @@
 const monthlyItems = [
-    "Rice",
-    "Chicken",
-    "Eggs",
-    "Dal",
-    "Oil",
-    "Salt",
-    "Chili Powder",
-    "Turmeric",
-    "Garlic",
-    "Onion",
-    "Potato",
-    "Noodles",
-    "Tuna"
+    {n:"Rice", q:"5–10 kg"}, {n:"Chicken", q:"2.5–3 kg"}, {n:"Eggs", q:"30 pcs"},
+    {n:"Dal", q:"1 kg"}, {n:"Cooking oil", q:"1–2 L"}, {n:"Salt", q:"1 pack"},
+    {n:"Chili powder", q:"1 pack"}, {n:"Turmeric", q:"1 pack"}, {n:"Other spices", q:"as needed"},
+    {n:"Garlic", q:"500 g"}, {n:"Onion", q:"2 kg"}, {n:"Potato", q:"2–3 kg"},
+    {n:"Noodles", q:"2–4 packs"}, {n:"Beef", q:"1–2 kg"}
 ];
 
 const weeklyItems = [
-    "Carrot",
-    "Cabbage",
-    "Broccoli",
-    "Eggplant",
-    "Cucumber",
-    "Tomato",
-    "Banana",
-    "Apple",
-    "Milk",
-    "Yogurt",
-    "Bread"
+    {n:"🥬 Carrot", q:"500 g"}, {n:"🥬 Cabbage", q:"½–1"}, {n:"🥬 Broccoli", q:"1"},
+    {n:"🥬 Eggplant", q:"2–3"}, {n:"🥬 Cucumber", q:"2–3"}, {n:"🥬 Tomato", q:"3–5"},
+    {n:"🍌 Banana", q:""}, {n:"🍎 Apple", q:""}, {n:"🍊 Orange", q:""},
+    {n:"🥛 Milk", q:""}, {n:"🥛 Yogurt", q:""}, {n:"🍞 Bread", q:""},
+    {n:"🥚 Eggs", q:"শেষ হলে"}
+];
+
+const snackItems = ["Biscuit", "Chips", "Chocolate", "Peanuts / Nuts", "Ice cream", "Juice / Drink"];
+
+const ruleItems = [
+    "Shopping list ছাড়া দোকানে যাব না",
+    "সপ্তাহে ১টা main shopping করব",
+    "Healthy food আগে কিনব",
+    "Snacks-এর আলাদা budget থাকবে",
+    "List-এ না থাকা জিনিস সঙ্গে সঙ্গে কিনব না",
+    "দরকার মনে হলে “Next Shopping” list-এ লিখব",
+    "24 ঘণ্টা পরে এখনও দরকার হলে কিনব",
+    "Convenience store থেকে impulse shopping কমাব",
+    "মাসের শেষে leftover food আগে শেষ করব"
+];
+
+const prepItems = [
+    "Chicken portion করে freezer-এ রাখা",
+    "কিছু vegetables কেটে রাখা",
+    "4–6টা egg boil করে রাখা",
+    "Onion/Garlic কিছুটা কেটে রাখা",
+    "সম্ভব হলে 2–3 portion একসাথে রান্না করা"
 ];
 
 
@@ -53,51 +61,39 @@ function goHome() {
 }
 
 
+function renderList(containerId, prefix, items) {
+    const box = document.getElementById(containerId);
+    box.innerHTML = items.map((item, index) => {
+        const id = prefix + index;
+        const checked = localStorage.getItem(id) === "true";
+        const label = typeof item === "string"
+            ? item
+            : item.n + (item.q ? " <small>— " + item.q + "</small>" : "");
+        return `
+            <label class="shopping-item">
+                <input type="checkbox" ${checked ? "checked" : ""}
+                    onchange="saveItem('${id}', this.checked)">
+                <span>${label}</span>
+            </label>`;
+    }).join("");
+}
+
+
 function showShoppingList() {
-
-    const monthly = document.getElementById("monthlyList");
-    const weekly = document.getElementById("weeklyList");
-
-    monthly.innerHTML = "";
-    weekly.innerHTML = "";
-
-
-    monthlyItems.forEach((item, index) => {
-
-        const id = "monthly" + index;
-        const checked = localStorage.getItem(id) === "true";
-
-        monthly.innerHTML += `
-            <label class="shopping-item">
-                <input
-                    type="checkbox"
-                    ${checked ? "checked" : ""}
-                    onchange="saveItem('${id}', this.checked)"
-                >
-                ${item}
-            </label>
-        `;
-    });
-
-
-    weeklyItems.forEach((item, index) => {
-
-        const id = "weekly" + index;
-        const checked = localStorage.getItem(id) === "true";
-
-        weekly.innerHTML += `
-            <label class="shopping-item">
-                <input
-                    type="checkbox"
-                    ${checked ? "checked" : ""}
-                    onchange="saveItem('${id}', this.checked)"
-                >
-                ${item}
-            </label>
-        `;
-    });
-
+    renderList("monthlyList", "monthly", monthlyItems);
+    renderList("weeklyList", "weekly", weeklyItems);
+    renderList("snackList", "snack", snackItems);
+    renderList("rulesList", "rule", ruleItems);
+    renderList("prepList", "prep", prepItems);
     updateProgress();
+}
+
+
+function resetChecks(prefix, count) {
+    if (!confirm("সব tick মুছে নতুন করে শুরু করবেন?")) return;
+    for (let i = 0; i < count; i++) localStorage.removeItem(prefix + i);
+    showShoppingList();
+    updateDashboard();
 }
 
 
@@ -133,13 +129,23 @@ function updateProgress() {
 
 
 const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
+    "সোমবার (Monday)",
+    "মঙ্গলবার (Tuesday)",
+    "বুধবার (Wednesday)",
+    "বৃহস্পতিবার (Thursday)",
+    "শুক্রবার (Friday)",
+    "শনিবার (Saturday)",
+    "রবিবার (Sunday)"
+];
+
+const defaultMeals = [
+    "ভাত + মুরগির ঝোল + সবজি",
+    "ভাত + ডিম + আলু ভাজি",
+    "ভাত + মুরগি + বাঁধাকপি/গাজর",
+    "ভাত + ডাল + ডিম + সবজি",
+    "ভাত + মুরগি + আলু",
+    "খিচুড়ি + ডিম/মুরগি",
+    "ভাত + গরুর মাংস + সবজি"
 ];
 
 
@@ -163,7 +169,7 @@ function showMealPlan() {
     days.forEach((day, index) => {
 
         const savedMeal =
-            localStorage.getItem("meal" + index) || "";
+            localStorage.getItem("meal" + index) || defaultMeals[index];
 
         mealList.innerHTML += `
 
@@ -175,7 +181,7 @@ function showMealPlan() {
                     type="text"
                     id="meal${index}"
                     placeholder="What will you eat?"
-                    value="${savedMeal}"
+                    value="${savedMeal.replace(/"/g, '&quot;')}"
                 >
 
                 <button onclick="saveMeal(${index})">
@@ -340,7 +346,7 @@ function updateDashboard() {
     const mealIndex = dayIndex === 0 ? 6 : dayIndex - 1;
 
     const todayMeal =
-        localStorage.getItem("meal" + mealIndex);
+        localStorage.getItem("meal" + mealIndex) || defaultMeals[mealIndex];
 
     document.getElementById("todayMeal").innerText =
         todayMeal || "No meal planned yet";
